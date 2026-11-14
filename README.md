@@ -5,7 +5,7 @@
 
 
 
-
+![BASE OMEGA Banner](assets/banner.png)
 
 
 BASE OMEGA — Junior Astronaut Mission Trainer
