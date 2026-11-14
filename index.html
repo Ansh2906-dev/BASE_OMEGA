@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Base OMEGA — Junior Astronaut Mission Trainer</title>
+  <meta name="description" content="Base OMEGA is a Moon-outpost survival and strategy game for young explorers. Manage oxygen, water, food, power and radiation for 10 days.">
+  <meta name="theme-color" content="#070b1a">
+  <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header class="top">
+    <div class="wrap top-inner">
+      <div>
+        <h1>🚀 BASE OMEGA</h1>
+        <p class="tagline">Junior Astronaut Mission Trainer</p>
+      </div>
+      <div class="day-box">
+        <span id="dayLabel" class="day-label">Day 1 of 10</span>
+        <progress id="dayProgress" max="10" value="1" aria-label="Mission progress"></progress>
+      </div>
+      <button id="helpBtn" class="btn ghost" type="button">❓ How to play</button>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <section aria-labelledby="statusHeading">
+      <h2 id="statusHeading">1 · Check the Base</h2>
+      <div id="resources" class="resources"></div>
+    </section>
+
+    <section id="alertBox" class="alert calm" role="status" aria-live="polite"></section>
+
+    <section aria-labelledby="planHeading">
+      <h2 id="planHeading">2 · Choose Your Plan</h2>
+
+      <div class="plan-grid">
+
+        <fieldset class="choice-group">
+          <legend>🍽️ Food quota</legend>
+          <label class="choice"><input type="radio" name="food" value="low"><span><strong>Small rations</strong><small>Saves food · crew gets grumpy</small></span></label>
+          <label class="choice"><input type="radio" name="food" value="normal" checked><span><strong>Normal meals</strong><small>Balanced and fair</small></span></label>
+          <label class="choice"><input type="radio" name="food" value="feast"><span><strong>Feast day</strong><small>Uses lots of food · crew cheers up</small></span></label>
+        </fieldset>
+
+        <fieldset class="choice-group">
+          <legend>🫁 Oxygen production</legend>
+          <label class="choice"><input type="radio" name="oxygen" value="low"><span><strong>Low</strong><small>Saves power and water</small></span></label>
+          <label class="choice"><input type="radio" name="oxygen" value="normal" checked><span><strong>Normal</strong><small>About what the crew breathes</small></span></label>
+          <label class="choice"><input type="radio" name="oxygen" value="high"><span><strong>High</strong><small>Extra oxygen · uses more power and water</small></span></label>
+        </fieldset>
+
+        <fieldset class="choice-group">
+          <legend>⚙️ Operating mode</legend>
+          <label class="choice"><input type="radio" name="mode" value="normal" checked><span><strong>Normal</strong><small>Everyone works as usual</small></span></label>
+          <label class="choice"><input type="radio" name="mode" value="eco"><span><strong>Eco</strong><small>Saves power · crew is a bit less happy</small></span></label>
+          <label class="choice"><input type="radio" name="mode" value="shelter"><span><strong>Shelter 🛡️</strong><small>Blocks most radiation · uses extra power</small></span></label>
+        </fieldset>
+
+        <fieldset class="choice-group">
+          <legend>📦 Resupply order</legend>
+          <label class="field-label" for="crate">Supply crate</label>
+          <select id="crate">
+            <option value="none">No order</option>
+            <option value="oxygen">Oxygen tanks (+30) — 25 cr</option>
+            <option value="water">Water tanks (+30) — 20 cr</option>
+            <option value="food">Food crates (+30) — 20 cr</option>
+            <option value="power">Power cells (+30) — 25 cr</option>
+            <option value="parts">Spare parts (+30 equipment) — 30 cr</option>
+          </select>
+          <label class="choice"><input type="radio" name="delivery" value="standard" checked><span><strong>Standard</strong><small>Arrives in 2 days</small></span></label>
+          <label class="choice"><input type="radio" name="delivery" value="express"><span><strong>Express</strong><small>Arrives in 1 day · costs double</small></span></label>
+          <label class="check"><input type="checkbox" id="maintenance"> <span>🔧 Run maintenance today (+8 equipment, 8 cr, a little power)</span></label>
+        </fieldset>
+
+      </div>
+
+      <div class="plan-footer">
+        <p id="costPreview" class="cost" aria-live="polite"></p>
+        <button id="endDayBtn" class="btn primary big" type="button">3 · End the Day ▶</button>
+      </div>
+    </section>
+
+    <section aria-labelledby="incomingHeading">
+      <h2 id="incomingHeading">📬 Supplies on the way</h2>
+      <ul id="incoming" class="list"></ul>
+    </section>
+
+    <section aria-labelledby="logHeading">
+      <h2 id="logHeading">📒 Mission log</h2>
+      <ol id="log" class="list log"></ol>
+    </section>
+
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <p><strong>Data note:</strong> this prototype uses a small saved sample of solar-flare records attributed to NASA's DONKI database — not a live connection to NASA APIs. Game values are simplified for learning.</p>
+      <p>Built for the NASA Space Apps Challenge 2026 · Junior Astronaut Mission Trainer</p>
+    </div>
+  </footer>
+
+  <div id="toast" class="toast" role="alert" aria-live="assertive" hidden></div>
+
+  <!-- Intro / How to play -->
+  <dialog id="introDialog" aria-labelledby="introTitle">
+    <h2 id="introTitle">Welcome, Commander! 🌕</h2>
+    <p>You command a Moon outpost with a crew of 4. Keep everyone alive and the base running for <strong>10 days</strong>.</p>
+    <ol class="how">
+      <li><strong>Check the Base</strong> — watch the meters.</li>
+      <li><strong>Choose Your Plan</strong> — food, oxygen, mode and resupply.</li>
+      <li><strong>End the Day</strong> — resources are used up.</li>
+      <li><strong>Respond to Events</strong> — solar flares raise radiation. Use <em>Shelter</em> to stay safe.</li>
+      <li><strong>Learn and Continue</strong> — every day teaches you something new.</li>
+    </ol>
+    <p class="muted">Careful: supplies are delayed, and fixing one problem can cause another. There is no single perfect plan!</p>
+    <div class="dialog-actions">
+      <button id="startBtn" class="btn primary big" type="button">Start Mission 🚀</button>
+    </div>
+  </dialog>
+
+  <!-- Daily summary -->
+  <dialog id="summaryDialog" aria-labelledby="summaryTitle">
+    <h2 id="summaryTitle">Day complete</h2>
+    <div id="summaryBody"></div>
+    <div class="dialog-actions">
+      <button id="nextDayBtn" class="btn primary big" type="button">Next day ▶</button>
+    </div>
+  </dialog>
+
+  <!-- End of mission -->
+  <dialog id="endDialog" aria-labelledby="endTitle">
+    <h2 id="endTitle">Mission over</h2>
+    <div id="endBody"></div>
+    <div class="dialog-actions">
+      <button id="restartBtn" class="btn primary big" type="button">Play again 🔁</button>
+    </div>
+  </dialog>
+
+  <script src="script.js"></script>
+</body>
+</html>
