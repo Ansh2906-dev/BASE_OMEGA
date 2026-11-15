@@ -8,7 +8,7 @@
 ![BASE OMEGA Banner](assets/banner.png)
 
 
-# 🚀 BASE OMEGA — Junior Astronaut Mission Trainer
+# BASE OMEGA — Junior Astronaut Mission Trainer
 
 **Plan wisely. Protect the crew. Complete the mission.**
 
@@ -18,11 +18,11 @@ The project puts players in command of a lunar outpost for a simulated 10-day mi
 
 Every decision has consequences. A choice that benefits one system may put pressure on another.
 
-🔗 **Live Demo:** https://Ansh2906-dev.github.io/BASE_OMEGA/
+**Live Demo:** https://Ansh2906-dev.github.io/BASE_OMEGA/
 
 ---
 
-## 🌕 Project Overview
+##  Project Overview
 
 Space exploration requires careful resource management, planning, and decision-making. On the Moon, resources are limited, resupply takes time, and environmental hazards can threaten crew safety.
 
